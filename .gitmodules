@@ -1,3 +1,6 @@
 [submodule "leia-elm"]
 	path = assets/leia-elm
 	url = https://github.com/the-vikings/leia-elm
+[submodule "assets/leia-elm"]
+	path = assets/leia-elm
+	url = https://github.com/the-vikings/leia-elm
