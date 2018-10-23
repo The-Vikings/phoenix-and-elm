@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/The-Vikings/phoenix-and-elm.svg?branch=master)](https://travis-ci.org/The-Vikings/phoenix-and-elm)
 
-# Leia: Lecture interactively 
+
+# Leia: Lecture interactively [![Build Status](https://travis-ci.org/The-Vikings/phoenix-and-elm.svg?branch=master)](https://travis-ci.org/The-Vikings/phoenix-and-elm)
 
 For now this is strongly based on the work done by [Paul Fioravanti](https://github.com/paulfioravanti/phoenix-and-elm). 
 We hope to disconnect us from his code soon, so to make this our own independent work.
