@@ -20,6 +20,12 @@ mix ecto.create
 mix ecto.migrate
 
 echo "\nTesting the installation..."
-mix test
 
-mix phx.server
+if [ "$TRAVIS_TEST" == "true" ]
+then
+    mix test
+else
+    mix test
+    mix phx.server
+fi
+
