@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/The-Vikings/phoenix-and-elm.svg?branch=master)](https://travis-ci.org/The-Vikings/phoenix-and-elm)
 
-# Phoenix And Elm: a real use case
 
-For now this is strongly based on the work done by Paul Fioravanti. 
+# Leia: Lecture interactively [![Build Status](https://travis-ci.org/The-Vikings/phoenix-and-elm.svg?branch=master)](https://travis-ci.org/The-Vikings/phoenix-and-elm)
+
+For now this is strongly based on the work done by [Paul Fioravanti](https://github.com/paulfioravanti/phoenix-and-elm). 
 We hope to disconnect us from his code soon, so to make this our own independent work.
 
 ## Installation
@@ -22,6 +22,4 @@ Open <http://localhost> in a browser.
 
 ## Deployment Notes
 
-[Docker Hub][] is used to serve the docker images, currently only odgaard has access to this docker hub, so please contact him directly if you wish to make changes.
-
-
+[Docker Hub](https://hub.docker.com/r/odgaard/phoenix-and-elm/) is used to serve the docker images, currently only odgaard has access to this docker hub, so please contact him directly if you wish to make changes.
