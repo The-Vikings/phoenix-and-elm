@@ -6,7 +6,7 @@ services:
   # Our Phoenix container
   phoenix:
     # The build parameters for this container.
-    build: .
+    image: odgaard/phoenix-and-elm_phoenix
     environment:
       # Variables to connect to our Postgres server
       TRAVIS_TEST: "true"

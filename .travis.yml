@@ -12,5 +12,5 @@ install:
   - git clone --recursive https://github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
   - cd $TRAVIS_REPO_SLUG
   - git checkout -qf $TRAVIS_COMMIT
-  - docker-compose -f docker-compose-test.yml up
+  - docker-compose -f docker-compose-test.yml --exit-code-from phoenix up
   - docker ps -a
