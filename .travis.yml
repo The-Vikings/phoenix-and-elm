@@ -5,6 +5,11 @@ language: elixir
 services:
   - docker
 
-before_install:
+install:
+  - git clone --recursive https://github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
+  - cd $TRAVIS_REPO_SLUG
+  - git checkout -qf $TRAVIS_COMMIT
+
+after_install:
   - docker-compose up
   - docker ps -a
