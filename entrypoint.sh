@@ -21,7 +21,7 @@ mix ecto.migrate
 
 echo "\nTesting the installation..."
 
-if [ "$TRAVIS_TEST" == "true" ]
+if [ "$TRAVIS_TEST" = "true" ]
 then
     mix test
 else
