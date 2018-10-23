@@ -9,7 +9,7 @@ services:
     build: .
     environment:
       # Variables to connect to our Postgres server
-      TRAVIS_TEST: true
+      TRAVIS_TEST: "true"
       PGUSER: postgres
       PGPASSWORD: postgres
       PGDATABASE: leiaphx_dev 
