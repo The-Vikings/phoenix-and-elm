@@ -8,6 +8,11 @@ language: elixir
 services:
   - docker
 
+cache:
+  directories:
+    - _build
+    - deps
+
 install:
   - git clone --recursive https://github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
   - cd $TRAVIS_REPO_SLUG
