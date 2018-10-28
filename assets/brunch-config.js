@@ -16,6 +16,9 @@ exports.config = {
     }
   },
 
+  watcher: {
+    usePolling: true
+  },
   notifications: false, 
 
   conventions: {
