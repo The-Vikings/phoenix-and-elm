@@ -17,6 +17,13 @@ defmodule PhoenixAndElmWeb.Router do
     pipe_through :api
 
     resources "/chatrooms", ChatroomController #, except: [:new, :edit]
+    resources "/users", UserController #, except: [:new, :edit]
+    resources "/questions", QuestionController #, except: [:new, :edit]
+    resources "/replies", ReplyController #, except: [:new, :edit]
+    resources "/votes", VoteController #, except: [:new, :edit]
+
+
+
 
     scope "/v1", V1 do
       resources "/contacts", ContactController, only: [:index, :show]
