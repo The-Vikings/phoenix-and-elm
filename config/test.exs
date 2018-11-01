@@ -14,6 +14,6 @@ config :phoenix_and_elm, PhoenixAndElm.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "leiaphx_dev",
+  database: "leiaphx_test",
   hostname: "postgres_db",
   pool: Ecto.Adapters.SQL.Sandbox
