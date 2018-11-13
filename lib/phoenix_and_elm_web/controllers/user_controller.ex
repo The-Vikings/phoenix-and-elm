@@ -40,6 +40,7 @@ defmodule PhoenixAndElmWeb.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+
   def swagger_definitions do
     %{
       User: swagger_schema do
