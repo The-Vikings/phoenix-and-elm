@@ -17,7 +17,8 @@ exports.config = {
   },
 
   watcher: {
-    usePolling: true
+    usePolling: true,
+    awaitWriteFinish: true
   },
   notifications: false, 
 
