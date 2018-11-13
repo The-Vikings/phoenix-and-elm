@@ -84,7 +84,7 @@ defmodule PhoenixAndElmWeb.QuestionController do
     description "Creates a new question"
     consumes "application/json"
     produces "application/json"
-    parameter :question, :body, Schema.ref(:UserRequest), "The question details", example: %{
+    parameter :question, :body, Schema.ref(:QuestionRequest), "The question details", example: %{
       question: %{name: "CS443"}
     }
     response 201, "Question created OK", Schema.ref(:QuestionResponse), example: %{

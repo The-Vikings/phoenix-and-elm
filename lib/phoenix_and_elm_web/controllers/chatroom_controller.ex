@@ -85,7 +85,7 @@ defmodule PhoenixAndElmWeb.ChatroomController do
     description "Creates a new chatroom"
     consumes "application/json"
     produces "application/json"
-    parameter :chatroom, :body, Schema.ref(:UserRequest), "The chatroom details", example: %{
+    parameter :chatroom, :body, Schema.ref(:ChatroomRequest), "The chatroom details", example: %{
       chatroom: %{name: "CS443"}
     }
     response 201, "Chatroom created OK", Schema.ref(:ChatroomResponse), example: %{
