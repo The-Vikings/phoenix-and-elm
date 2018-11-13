@@ -81,6 +81,20 @@ defmodule PhoenixAndElmWeb.ReplyController do
 
     }
   end
+
+  swagger_path(:index) do
+    get "/api/replies"
+    summary "List Replies"
+    description "List all replies in the database"
+    produces "application/json"
+    deprecated false
+    response 200, "OK", Schema.ref(:RepliesResponse), example: %{
+      data: [
+        %{id: 1, body: "Check Raft's paper", inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"}
+      ]
+    }
+  end
+
   swagger_path(:create) do
     post "/api/replies"
     summary "Create reply"
@@ -88,11 +102,11 @@ defmodule PhoenixAndElmWeb.ReplyController do
     consumes "application/json"
     produces "application/json"
     parameter :reply, :body, Schema.ref(:ReplyRequest), "The reply details", example: %{
-      reply: %{name: "CS443"}
+      reply: %{body: "Check Raft's paper"}
     }
     response 201, "Reply created OK", Schema.ref(:ReplyResponse), example: %{
       data: %{
-        id: 1, body: "How does Raft's leader election work?", inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"
+        id: 1, body: "Check Raft's paper", inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"
       }
     }
   end
@@ -103,7 +117,7 @@ defmodule PhoenixAndElmWeb.ReplyController do
     parameter :id, :path, :integer, "Reply ID", required: true, example: 123
     response 200, "OK", Schema.ref(:ReplyResponse), example: %{
       data: %{
-        id: 123, body: "How does Raft's leader election work?", inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"
+        id: 123, body: "Check Raft's paper", inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"
       }
     }
   end

@@ -79,6 +79,20 @@ defmodule PhoenixAndElmWeb.UserController do
       end
     }
   end
+
+  swagger_path(:index) do
+    get "/api/users"
+    summary "List Users"
+    description "List all users in the database"
+    produces "application/json"
+    deprecated false
+    response 200, "OK", Schema.ref(:UsersResponse), example: %{
+      data: [
+        %{id: 1, name: "Joe", inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"}
+      ]
+    }
+  end
+
   swagger_path(:create) do
     post "/api/users"
     summary "Create user"

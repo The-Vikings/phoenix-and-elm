@@ -80,6 +80,20 @@ defmodule PhoenixAndElmWeb.VoteController do
       end
     }
   end
+
+  swagger_path(:index) do
+    get "/api/votes"
+    summary "List Votes"
+    description "List all votes in the database"
+    produces "application/json"
+    deprecated false
+    response 200, "OK", Schema.ref(:VotesResponse), example: %{
+      data: [
+        %{id: 1, value: 1, inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"}
+      ]
+    }
+  end
+
   swagger_path(:create) do
     post "/api/votes"
     summary "Create vote"

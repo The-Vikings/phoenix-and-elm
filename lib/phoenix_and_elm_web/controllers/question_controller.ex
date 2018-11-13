@@ -80,6 +80,21 @@ defmodule PhoenixAndElmWeb.QuestionController do
 
     }
   end
+
+  swagger_path(:index) do
+    get "/api/questions"
+    summary "List Questions"
+    description "List all questions in the database"
+    produces "application/json"
+    deprecated false
+    response 200, "OK", Schema.ref(:QuestionResponse), example: %{
+      data: [ %{
+                id: 1, body: "How does Raft's leader election work?", inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"
+                }
+      ]
+    }
+  end
+
   swagger_path(:create) do
     post "/api/questions"
     summary "Create question"
