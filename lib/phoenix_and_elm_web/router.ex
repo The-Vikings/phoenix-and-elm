@@ -22,12 +22,15 @@ defmodule PhoenixAndElmWeb.Router do
     resources "/replies", ReplyController #, except: [:new, :edit]
     resources "/votes", VoteController #, except: [:new, :edit]
 
-
+    
 
 
     scope "/v1", V1 do
       resources "/contacts", ContactController, only: [:index, :show]
     end
+  end
+  scope "/api/swagger" do
+    forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :phoenix_and_elm, swagger_file: "swagger.json", opts: [disable_validator: true]
   end
 
   scope "/", PhoenixAndElmWeb do
@@ -35,5 +38,14 @@ defmodule PhoenixAndElmWeb.Router do
     pipe_through :browser
 
     get "/*path", AddressBookController, :index
+  end
+  def swagger_info do
+    %{
+
+      info: %{
+	version: "0.1",
+	title: "Leia App"
+      }
+    }
   end
 end
