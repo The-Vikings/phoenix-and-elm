@@ -25,8 +25,7 @@ echo "\nTesting the installation..."
 
 if [ "$TRAVIS_TEST" = "true" ]
 then
-    MIX_ENV=test
-    mix coveralls.travis 
+    MIX_ENV=test mix coveralls.travis 
 else
     mix test
     mix phx.server
