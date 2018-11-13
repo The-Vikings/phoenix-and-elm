@@ -48,6 +48,8 @@ defmodule PhoenixAndElmWeb.QuestionController do
         properties do
           name :string, "Question's name", required: true
           id :string, "Unique identifier", required: true
+          inserted_at :string, "Creation timestamp", format: :datetime
+          updated_at :string, "Update timestamp", format: :datetime
         end
         example %{
           name: "CS443",

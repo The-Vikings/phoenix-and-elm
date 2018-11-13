@@ -48,6 +48,8 @@ defmodule PhoenixAndElmWeb.UserController do
         description "A user of the application"
         properties do
           name :string, "Users name", required: true
+          inserted_at :string, "Creation timestamp", format: :datetime
+          updated_at :string, "Update timestamp", format: :datetime
         end
         example %{
           name: "Joe",

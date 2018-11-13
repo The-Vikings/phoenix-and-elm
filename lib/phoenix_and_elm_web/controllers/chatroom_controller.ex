@@ -48,6 +48,8 @@ defmodule PhoenixAndElmWeb.ChatroomController do
         description "A chatroom in the application"
         properties do
           name :string, "Chatroom's name", required: true
+          inserted_at :string, "Creation timestamp", format: :datetime
+          updated_at :string, "Update timestamp", format: :datetime
         end
         example %{
           name: "CS443",
@@ -73,10 +75,24 @@ defmodule PhoenixAndElmWeb.ChatroomController do
         title "ChatroomsReponse"
         description "Response schema for multiple chatrooms"
         property :data, Schema.array(:Chatroom), "The chatrooms details"
-      end,
+      end
 
     }
   end
+
+  swagger_path(:index) do
+    get "/api/chatrooms"
+    summary "List Chatrooms"
+    description "List all chatrooms in the database"
+    produces "application/json"
+    deprecated false
+    response 200, "OK", Schema.ref(:ChatroomsResponse), example: %{
+      data: [
+        %{id: 1, name: "CS443", inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"}
+      ]
+    }
+  end
+
   swagger_path(:create) do
     post "/api/chatrooms"
     summary "Create chatroom"

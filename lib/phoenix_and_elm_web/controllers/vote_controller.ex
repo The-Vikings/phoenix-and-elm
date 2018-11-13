@@ -49,6 +49,8 @@ defmodule PhoenixAndElmWeb.VoteController do
         properties do
           name :string, "Votes name", required: true
           id :string, "Unique identifier", required: true
+          inserted_at :string, "Creation timestamp", format: :datetime
+          updated_at :string, "Update timestamp", format: :datetime
         end
         example %{
           value: 1,
