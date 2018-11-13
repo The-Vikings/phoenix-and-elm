@@ -7,6 +7,8 @@ defmodule PhoenixAndElm.Mixfile do
       version: "0.0.1",
       elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env()),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
       compilers: [:phoenix, :gettext, :phoenix_swagger] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -47,6 +49,7 @@ defmodule PhoenixAndElm.Mixfile do
       {:cowboy, "~> 1.0"},
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"}, # optional
+      {:excoveralls, "~> 0.10", only: :test},
       {:google_api_custom_search, "~> 0.0.1"}
     ]
   end

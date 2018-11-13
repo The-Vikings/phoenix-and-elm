@@ -23,9 +23,12 @@ mix ecto.migrate
 
 echo "\nTesting the installation..."
 
+MIX_ENV=test mix coveralls
+
 if [ "$TRAVIS_TEST" = "true" ]
 then
-    mix test
+    MIX_ENV=test mix coveralls
+    mix coveralls.travis 
 else
     mix test
     mix phx.server
