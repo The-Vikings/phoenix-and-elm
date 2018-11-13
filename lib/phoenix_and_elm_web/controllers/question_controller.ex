@@ -40,7 +40,7 @@ defmodule PhoenixAndElmWeb.QuestionController do
       send_resp(conn, :no_content, "")
     end
   end
-    def swagger_definitions do
+  def swagger_definitions do
     %{
       Question: swagger_schema do
         title "Question"

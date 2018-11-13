@@ -10,7 +10,7 @@ config :phoenix_and_elm, ecto_repos: [PhoenixAndElm.Repo]
 
 # Configures the endpoint
 config :phoenix_and_elm, PhoenixAndElmWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "localhost", port: 80],
   secret_key_base:
     "3xtybth86FwTjcafUFCdKX/sjCNq4O9vpX8PlEyAhOZ6xM43i5XdhLHAvyCpIUW7",
   render_errors: [view: PhoenixAndElmWeb.ErrorView, accepts: ~w(html json)],

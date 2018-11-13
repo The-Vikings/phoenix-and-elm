@@ -48,7 +48,6 @@ defmodule PhoenixAndElmWeb.UserController do
         description "A user of the application"
         properties do
           name :string, "Users name", required: true
-          id :string, "Unique identifier", required: true
         end
         example %{
           name: "Joe",

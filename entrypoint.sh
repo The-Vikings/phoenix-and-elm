@@ -13,6 +13,8 @@ done
 cd assets && npm install
 cd ..
 
+export PORT=80
+
 mix deps.get
 
 # Potentially Set up the database

@@ -48,11 +48,9 @@ defmodule PhoenixAndElmWeb.ChatroomController do
         description "A chatroom in the application"
         properties do
           name :string, "Chatroom's name", required: true
-          id :string, "Unique identifier", required: true
         end
         example %{
           name: "CS443",
-          id: "123",
         }
       end,
       Chatrooms: swagger_schema do
