@@ -2,6 +2,7 @@ sudo: required
 
 env:
   - TRAVIS_TEST=true
+  - MIX_ENV=test
 
 language: elixir 
 elixir: '1.7.4'
