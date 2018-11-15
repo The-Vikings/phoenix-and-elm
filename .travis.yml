@@ -23,4 +23,5 @@ script:
 after_success:
   - sudo rm -rf deps
   - mix local.hex --force
+  - mix deps.get
   - mix coveralls.travis
