@@ -14,8 +14,6 @@ cd assets && npm install
 cd ..
 
 export PORT=80
-export TRAVIS_JOB_ID="$TRAVIS_JOB_ID" 
-export TRAVIS_BRANCH="$TRAVIS_BRANCH"
 
 mix deps.get
 
