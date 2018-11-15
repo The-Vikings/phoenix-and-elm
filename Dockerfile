@@ -1,7 +1,7 @@
 # ./Dockerfile
 
 # Use an official Elixir runtime as a parent image
-FROM elixir:latest
+FROM elixir:1.7.4
 
 RUN apt-get update && \
   apt-get install -y postgresql-client inotify-tools apt-transport-https

@@ -4,6 +4,7 @@ env:
   - TRAVIS_TEST=true
 
 language: elixir 
+elixir: '1.7.4'
 
 services:
   - docker
