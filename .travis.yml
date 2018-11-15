@@ -24,5 +24,8 @@ after_success:
   - sudo rm -rf deps
   - sudo rm -rf _build
   - mix local.hex --force
+  - mix local.rebar --force
+  - mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez
   - mix deps.get
+  - mix do compile
   - mix coveralls.travis
