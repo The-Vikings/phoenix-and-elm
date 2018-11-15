@@ -21,6 +21,6 @@ install:
 script:
   - docker-compose -f docker-compose-test.yml up --exit-code-from phoenix
 after_success:
-  - rm -rf deps
+  - sudo rm -rf deps
   - mix local.hex --force
   - mix coveralls.travis
