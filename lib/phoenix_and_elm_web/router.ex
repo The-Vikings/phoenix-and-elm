@@ -16,10 +16,22 @@ defmodule PhoenixAndElmWeb.Router do
   scope "/api", PhoenixAndElmWeb do
     pipe_through :api
 
-    resources "/chatrooms", ChatroomController #, except: [:new, :edit]
     resources "/users", UserController #, except: [:new, :edit]
-    resources "/questions", QuestionController #, except: [:new, :edit]
-    resources "/replies", ReplyController #, except: [:new, :edit]
+
+    resources "/chatrooms", ChatroomController do #, except: [:new, :edit]
+      resources "/questions", QuestionController
+      resources "/users", UserController
+    end
+
+    resources "/questions", QuestionController do #, except: [:new, :edit]
+      resources "/replies", ReplyController
+      resources "/votes", VoteController
+    end
+
+    resources "/replies", ReplyController do #, except: [:new, :edit]
+      resources "/votes", VoteController
+    end
+
     resources "/votes", VoteController #, except: [:new, :edit]
   end
   scope "/api/swagger" do

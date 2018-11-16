@@ -30,6 +30,7 @@ then
     MIX_ENV=test mix coveralls.travis 
 else
     mix test
+    mix phx.routes
     mix phx.server
 fi
 
