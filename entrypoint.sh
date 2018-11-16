@@ -14,8 +14,6 @@ cd assets && npm install
 cd ..
 
 export PORT=80
-export TRAVIS_JOB_ID="$TRAVIS_JOB_ID" 
-export TRAVIS_BRANCH="$TRAVIS_BRANCH"
 
 mix deps.get
 
@@ -27,7 +25,8 @@ echo "\nTesting the installation..."
 
 if [ "$TRAVIS_TEST" = "true" ]
 then
-    MIX_ENV=test mix coveralls.travis 
+#    MIX_ENV=test mix coveralls.travis
+    mix test
 else
     mix test
     mix phx.routes

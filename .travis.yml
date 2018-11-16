@@ -1,9 +1,10 @@
 sudo: required
 
 env:
-  - TRAVIS_TEST=true
+  - TRAVIS_TEST=true MIX_ENV=test
 
 language: elixir 
+elixir: '1.7.4'
 
 services:
   - docker
@@ -19,3 +20,13 @@ install:
   - git checkout -qf $TRAVIS_COMMIT
 script:
   - docker-compose -f docker-compose-test.yml up --exit-code-from phoenix
+
+#after_success:
+#  - sudo rm -rf deps
+#  - sudo rm -rf _build
+#  - mix local.hex --force
+#  - mix local.rebar --force
+#  - mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+#  - mix deps.get
+#  - mix do compile
+#  - mix coveralls.travis
