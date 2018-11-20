@@ -15,9 +15,6 @@ services:
       PGPORT: 5432
       # Hostname of our Postgres container
       PGHOST: postgres_db
-      # Variables for Travis
-      - TRAVIS_JOB_ID
-      - TRAVIS_BRANCH
     ports:
       # Mapping the port to make the Phoenix app accessible outside of the container
       - "80:80"
