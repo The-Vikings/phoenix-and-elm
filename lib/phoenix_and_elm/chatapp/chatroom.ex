@@ -5,6 +5,8 @@ defmodule PhoenixAndElm.Chatapp.Chatroom do
 
   schema "chatrooms" do
     field :name, :string
+    has_many :questions, PhoenixAndElm.Chatapp.Question
+#    has_many :users, foreign_key: :user_id
 
     timestamps()
   end

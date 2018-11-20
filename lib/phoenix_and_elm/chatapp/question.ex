@@ -6,6 +6,11 @@ defmodule PhoenixAndElm.Chatapp.Question do
   schema "questions" do
     field :body, :string
     field :user_id, :id
+    field :chatroom_id, :id
+   # belongs_to :chatrooms, PhoenixAndElm.Chatapp.Chatroom
+    #has_many :replies, foreign_key: :question_id
+    #has_many :
+
 
     timestamps()
   end

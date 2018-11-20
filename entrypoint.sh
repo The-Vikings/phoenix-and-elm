@@ -21,7 +21,9 @@ mix deps.get
 mix ecto.create
 mix ecto.migrate
 
+
 echo "\nTesting the installation..."
+
 
 if [ "$TRAVIS_TEST" = "true" ]
 then
@@ -30,6 +32,13 @@ then
 else
     mix test
     mix phx.routes
+
+#if [ "$FILL_DATABASE" = "true" ]
+#then
+    echo "Populating the database with dummy data"
+    mix run priv/repo/seeds.exs
+#fi
+
     mix phx.server
 fi
 

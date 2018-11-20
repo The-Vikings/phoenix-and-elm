@@ -22,7 +22,8 @@ defmodule PhoenixAndElmWeb.ChatroomController do
   end
 
   def show(conn, %{"id" => id}) do
-    chatroom = Chatapp.get_chatroom!(id)
+    chatroom = Chatapp.get_chatroom_all(id)
+    IO.inspect chatroom
     render(conn, "show.json", chatroom: chatroom)
   end
 

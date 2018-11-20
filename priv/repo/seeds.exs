@@ -25,50 +25,61 @@ defmodule PhoenixAndElm.Seeds do
 end
 
 alias PhoenixAndElm.{Repo, Seeds}
-alias PhoenixAndElm.AddressBook.Contact
+alias PhoenixAndElm.Chatapp.Chatroom
+alias PhoenixAndElm.Chatapp.Question
+alias PhoenixAndElm.Chatapp.Reply
+alias PhoenixAndElm.Accounts.User
+alias PhoenixAndElm.Chatapp.Vote
+Repo.delete_all(Reply)
+Repo.delete_all(Vote)
+Repo.delete_all(Question)
+Repo.delete_all(User)
+Repo.delete_all(Chatroom)
 
-IO.puts("---- Deleteing existing contacts")
+Repo.insert! %Chatroom{
+  name: "CS447",
+  id: 1
+}
 
-Repo.delete_all(Contact)
+Repo.insert! %User{
+  id: 1,
+  name: "Test user 1",
+  chatroom_id: 1
+}
 
-IO.puts("---- Creating contacts")
+Repo.insert! %User{
+  id: 2,
+  name: "Test user 2",
+  chatroom_id: 1
+}
 
-for index <- 1..100 do
-  {gender_id, gender_name} =
-    Contact.genders()
-    |> Enum.random()
+Repo.insert! %Question{
+  id: 1,
+  body: "Test question?",
+  user_id: 1,
+  chatroom_id: 1
+ }
 
-  picture_gender =
-    case gender_name do
-      :male -> "men"
-      _ -> "women"
-    end
+#Repo.insert! %Question{
+#  body: "A test question from another user?",
+#  user_id: 2
+#}
 
-  picture =
-    "https://api.randomuser.me/portraits/#{picture_gender}/#{index}.jpg"
+#Repo.insert! %Reply{
+#  body: "A reply to the first question, by user 2",
+#  user_id: 2,
+#  question_id: 1
+#}
 
-  birth_date = """
-  #{Seeds.random_number(1970, 1990)}-\
-  #{Seeds.random_number(1, 12)}-\
-  #{Seeds.random_number(1, 28)}\
-  """
+#Repo.insert! %Reply{
+#  body: "A reply to the second question, by user 2",
+#  user_id: 2,
+#  question_id: 2
+#}
 
-  params = %{
-    first_name: Faker.Name.first_name(),
-    last_name: Faker.Name.last_name(),
-    gender: gender_id,
-    birth_date: birth_date,
-    location: Faker.Address.country(),
-    phone_number: Faker.Phone.EnUs.phone(),
-    email: Faker.Internet.email(),
-    picture: picture,
-    headline: Faker.Lorem.sentence(3)
-  }
+#Repo.insert! %Vote{
+#  value: "1",
+#  user_id: 2,
+#  question_id: 1
+#}
 
-  {:ok, contact} =
-    %Contact{}
-    |> Contact.changeset(params)
-    |> Repo.insert()
-
-  IO.puts("---- Inserted contact #{contact.id}")
-end
