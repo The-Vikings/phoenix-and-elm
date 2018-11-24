@@ -7,6 +7,10 @@ defmodule PhoenixAndElm.Accounts.User do
     field :name, :string
     field :chatroom_id, :id
 
+    has_many :votes, PhoenixAndElm.Chatapp.Vote
+    has_many :replies, PhoenixAndElm.Chatapp.Reply
+    has_many :questions, PhoenixAndElm.Chatapp.Question
+
     timestamps()
   end
 

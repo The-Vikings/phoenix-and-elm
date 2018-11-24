@@ -39,9 +39,7 @@ defmodule PhoenixAndElm.Chatapp do
 
   def get_chatroom_all!(id) do
     result = Repo.get!(Chatroom, id)
-    |> Repo.preload(:questions)
-    #result |> Repo.preload [{:questions, [{:replies, :votes}, :votes]}]
-    #result |> Repo.preload(questions: questions)
+    |> Repo.preload([{:questions, [:replies, :votes]}])
   end
 
   @doc """
