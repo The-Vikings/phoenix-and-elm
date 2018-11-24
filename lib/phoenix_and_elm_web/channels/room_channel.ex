@@ -21,6 +21,12 @@ defmodule PhoenixAndElmWeb.RoomChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (room:lobby).
   def handle_in("shout", payload, socket) do
+    spawn(fn -> automatic_query(payload) end)
+    broadcast socket, "shout", payload
+    {:noreply, socket}
+  end
+
+  def automatic_query(payload) do
     message = get_in(payload, ["message"])
     url = "https://api.duckduckgo.com/?q=" <> message <> "&format=json&pretty=1?t=ABriefStudentProject"
     #url = "https://api.duckduckgo.com/?q=DuckDuckGo&format=json&pretty=1"
@@ -32,9 +38,6 @@ defmodule PhoenixAndElmWeb.RoomChannel do
 
     IO.inspect response
     IO.inspect payload
-
-    broadcast socket, "shout", payload
-    {:noreply, socket}
   end
 
   # Add authorization logic here as required.
