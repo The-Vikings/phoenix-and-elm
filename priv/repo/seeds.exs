@@ -41,6 +41,11 @@ Repo.insert! %Chatroom{
   id: 1
 }
 
+Repo.insert! %Chatroom{
+  name: "CS408",
+  id: 2
+}
+
 Repo.insert! %User{
   id: 1,
   name: "Test user 1",
@@ -58,7 +63,14 @@ Repo.insert! %Question{
   body: "Test question?",
   user_id: 1,
   chatroom_id: 1
- }
+}
+
+Repo.insert! %Question{
+  id: 2,
+  body: "Another test question?",
+  user_id: 1,
+  chatroom_id: 1
+}
 
 #Repo.insert! %Question{
 #  body: "A test question from another user?",

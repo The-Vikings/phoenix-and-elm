@@ -19,6 +19,7 @@ defmodule PhoenixAndElmWeb.Router do
     resources "/users", UserController #, except: [:new, :edit]
 
     resources "/chatrooms", ChatroomController do #, except: [:new, :edit]
+      get "/all", ChatroomController, :all, as: :all
       resources "/questions", QuestionController
       resources "/users", UserController
     end

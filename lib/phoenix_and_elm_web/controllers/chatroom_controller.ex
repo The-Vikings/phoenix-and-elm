@@ -22,9 +22,13 @@ defmodule PhoenixAndElmWeb.ChatroomController do
   end
 
   def show(conn, %{"id" => id}) do
-    chatroom = Chatapp.get_chatroom_all(id)
-    IO.inspect chatroom
+    chatroom = Chatapp.get_chatroom!(id)
     render(conn, "show.json", chatroom: chatroom)
+  end
+
+  def all(conn, %{"chatroom_id" => id}) do
+    chatroom = Chatapp.get_chatroom_all!(id)
+    render(conn, "all.json", chatroom: chatroom)
   end
 
   def update(conn, %{"id" => id, "chatroom" => chatroom_params}) do
@@ -112,6 +116,17 @@ defmodule PhoenixAndElmWeb.ChatroomController do
   swagger_path(:show) do
     summary "Show Chatroom"
     description "Show a chatroom by ID"
+    produces "application/json"
+    parameter :id, :path, :integer, "Chatroom ID", required: true, example: 123
+    response 200, "OK", Schema.ref(:ChatroomResponse), example: %{
+      data: %{
+        id: 123, name: "CS443", inserted_at: "2017-02-08T12:34:55Z", updated_at: "2017-02-12T13:45:23Z"
+      }
+    }
+  end
+  swagger_path(:all) do
+    summary "Show Entire Chatroom"
+    description "Show all information about the chatroom by ID"
     produces "application/json"
     parameter :id, :path, :integer, "Chatroom ID", required: true, example: 123
     response 200, "OK", Schema.ref(:ChatroomResponse), example: %{
