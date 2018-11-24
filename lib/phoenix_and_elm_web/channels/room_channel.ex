@@ -14,10 +14,25 @@ defmodule PhoenixAndElmWeb.RoomChannel do
   def handle_in("ping", payload, socket) do
     {:reply, {:ok, payload}, socket}
   end
+  @expected_fields ~w(
+    entity abstract
+  )
 
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (room:lobby).
   def handle_in("shout", payload, socket) do
+    message = get_in(payload, ["message"])
+    url = "https://api.duckduckgo.com/?q=" <> message <> "&format=json&pretty=1?t=ABriefStudentProject"
+    #url = "https://api.duckduckgo.com/?q=DuckDuckGo&format=json&pretty=1"
+    response = HTTPoison.get!(url).body
+    |> Poison.decode!
+    |> get_in(["RelatedTopics"])
+    |> List.first
+    |> get_in(["Text"])
+
+    IO.inspect response
+    IO.inspect payload
+
     broadcast socket, "shout", payload
     {:noreply, socket}
   end

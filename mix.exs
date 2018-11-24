@@ -50,7 +50,8 @@ defmodule PhoenixAndElm.Mixfile do
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"}, # optional
       {:excoveralls, "~> 0.10", only: :test},
-      {:google_api_custom_search, "~> 0.0.1"}
+      {:google_api_custom_search, "~> 0.0.1"},
+      {:httpoison, "~> 1.4"}
     ]
   end
 
