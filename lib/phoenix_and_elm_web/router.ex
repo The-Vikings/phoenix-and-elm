@@ -42,6 +42,7 @@ defmodule PhoenixAndElmWeb.Router do
   scope "/", PhoenixAndElmWeb do
     # Use the default browser stack
     pipe_through :browser
+    get "/*path", ChatappController, :index
   end
   def swagger_info do
     %{
