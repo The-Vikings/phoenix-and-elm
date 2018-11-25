@@ -1,5 +1,6 @@
 defmodule PhoenixAndElmWeb.RoomChannel do
   use PhoenixAndElmWeb, :channel
+  alias PhoenixAndElm.Chatapp
 
   def join("room:lobby", payload, socket) do
     if authorized?(payload) do
@@ -22,6 +23,7 @@ defmodule PhoenixAndElmWeb.RoomChannel do
   # broadcast to everyone in the current topic (room:lobby).
   def handle_in("shout", payload, socket) do
     spawn(fn -> automatic_query(payload) end)
+    save_to_database(payload)
     broadcast socket, "shout", payload
     {:noreply, socket}
   end
@@ -29,7 +31,6 @@ defmodule PhoenixAndElmWeb.RoomChannel do
   def automatic_query(payload) do
     message = get_in(payload, ["message"])
     url = "https://api.duckduckgo.com/?q=" <> message <> "&format=json&pretty=1?t=ABriefStudentProject"
-    #url = "https://api.duckduckgo.com/?q=DuckDuckGo&format=json&pretty=1"
     response = HTTPoison.get!(url).body
     |> Poison.decode!
     |> get_in(["RelatedTopics"])
@@ -38,6 +39,15 @@ defmodule PhoenixAndElmWeb.RoomChannel do
 
     IO.inspect response
     IO.inspect payload
+  end
+
+  def save_to_database(payload) do
+    result = %{
+      body: payload["message"],
+      user_id: 1,
+      chatroom_id: 1
+    }
+    Chatapp.create_question(result)
   end
 
   # Add authorization logic here as required.

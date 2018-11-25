@@ -12,6 +12,8 @@ defmodule PhoenixAndElmWeb.QuestionView do
 
   def render("question.json", %{question: question}) do
     %{id: question.id,
-      body: question.body}
+      body: question.body,
+      user_id: question.user_id,
+      chatroom_id: question.chatroom_id}
   end
 end

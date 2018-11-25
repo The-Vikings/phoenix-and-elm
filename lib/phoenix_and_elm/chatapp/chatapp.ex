@@ -151,6 +151,7 @@ defmodule PhoenixAndElm.Chatapp do
 
   """
   def create_question(attrs \\ %{}) do
+    IO.inspect attrs
     %Question{}
     |> Question.changeset(attrs)
     |> Repo.insert()

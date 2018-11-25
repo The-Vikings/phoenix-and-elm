@@ -2,7 +2,6 @@ defmodule PhoenixAndElm.Chatapp.Question do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "questions" do
     field :body, :string
     field :user_id, :id

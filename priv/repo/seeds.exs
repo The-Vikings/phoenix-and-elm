@@ -39,66 +39,60 @@ Repo.delete_all(Chatroom)
 
 # Don't delete dummy data
 ########################################
-Repo.insert! %Chatroom{
+chatroom1 = Repo.insert! %Chatroom{
   name: "Dummy room",
-  id: 1
 }
 
-Repo.insert! %User{
-  id: 1,
+user1 = Repo.insert! %User{
   name: "Dummy user",
-  chatroom_id: 1
+  chatroom_id: chatroom1.id
 }
 
-Repo.insert! %Question{
-  id: 1,
+question1 = Repo.insert! %Question{
   body: "Dummy question?",
-  user_id: 1,
-  chatroom_id: 1
+  user_id: user1.id,
+  chatroom_id: chatroom1.id
 }
 
 Repo.insert! %Reply{
   body: "A dummy reply to the dummy question, by user 1",
-  user_id: 1,
-  question_id: 1
+  user_id: user1.id,
+  question_id: question1.id
 }
 
 Repo.insert! %Vote{
   value: "1",
-  user_id: 1,
-  question_id: 1
+  user_id: user1.id,
+  question_id: question1.id
 }
 ########################################
-
+"""
 Repo.insert! %Chatroom{
   name: "CS408",
-  id: 2
 }
 
 Repo.insert! %User{
-  id: 2,
   name: "Test user 2",
-  chatroom_id: 2
+  chatroom_id: 1
 }
 
 Repo.insert! %Question{
-  id: 2,
   body: "The first test question?",
-  user_id: 2,
-  chatroom_id: 2
+  user_id: 1,
+  chatroom_id: 1
 }
 
 Repo.insert! %Reply{
   body: "A reply to the first test question, by user 2",
-  user_id: 2,
-  question_id: 2
+  user_id: 1,
+  question_id: 1
 }
 
 Repo.insert! %Vote {
   value: "1",
-  user_id: 2,
-  question_id: 2
+  user_id: 1,
+  question_id: 1
 }
 
-
+"""
 
