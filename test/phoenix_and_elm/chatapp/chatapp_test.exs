@@ -242,4 +242,64 @@ defmodule PhoenixAndElm.ChatappTest do
       assert %Ecto.Changeset{} = Chatapp.change_vote(vote)
     end
   end
+
+  describe "autoanswers" do
+    alias PhoenixAndElm.Chatapp.AutoAnswer
+
+    @valid_attrs %{body: "some body"}
+    @update_attrs %{body: "some updated body"}
+    @invalid_attrs %{body: nil}
+
+    def auto_answer_fixture(attrs \\ %{}) do
+      {:ok, auto_answer} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Chatapp.create_auto_answer()
+
+      auto_answer
+    end
+
+    test "list_autoanswers/0 returns all autoanswers" do
+      auto_answer = auto_answer_fixture()
+      assert Chatapp.list_autoanswers() == [auto_answer]
+    end
+
+    test "get_auto_answer!/1 returns the auto_answer with given id" do
+      auto_answer = auto_answer_fixture()
+      assert Chatapp.get_auto_answer!(auto_answer.id) == auto_answer
+    end
+
+    test "create_auto_answer/1 with valid data creates a auto_answer" do
+      assert {:ok, %AutoAnswer{} = auto_answer} = Chatapp.create_auto_answer(@valid_attrs)
+      assert auto_answer.body == "some body"
+    end
+
+    test "create_auto_answer/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Chatapp.create_auto_answer(@invalid_attrs)
+    end
+
+    test "update_auto_answer/2 with valid data updates the auto_answer" do
+      auto_answer = auto_answer_fixture()
+      assert {:ok, auto_answer} = Chatapp.update_auto_answer(auto_answer, @update_attrs)
+      assert %AutoAnswer{} = auto_answer
+      assert auto_answer.body == "some updated body"
+    end
+
+    test "update_auto_answer/2 with invalid data returns error changeset" do
+      auto_answer = auto_answer_fixture()
+      assert {:error, %Ecto.Changeset{}} = Chatapp.update_auto_answer(auto_answer, @invalid_attrs)
+      assert auto_answer == Chatapp.get_auto_answer!(auto_answer.id)
+    end
+
+    test "delete_auto_answer/1 deletes the auto_answer" do
+      auto_answer = auto_answer_fixture()
+      assert {:ok, %AutoAnswer{}} = Chatapp.delete_auto_answer(auto_answer)
+      assert_raise Ecto.NoResultsError, fn -> Chatapp.get_auto_answer!(auto_answer.id) end
+    end
+
+    test "change_auto_answer/1 returns a auto_answer changeset" do
+      auto_answer = auto_answer_fixture()
+      assert %Ecto.Changeset{} = Chatapp.change_auto_answer(auto_answer)
+    end
+  end
 end

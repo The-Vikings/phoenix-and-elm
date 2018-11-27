@@ -3,6 +3,7 @@ defmodule PhoenixAndElmWeb.QuestionControllerTest do
 
   alias PhoenixAndElm.Chatapp
   alias PhoenixAndElm.Chatapp.Question
+  alias PhoenixAndElm.Chatapp.AutoAnswers
 
   @create_attrs %{body: "some body"}
   @update_attrs %{body: "some updated body"}

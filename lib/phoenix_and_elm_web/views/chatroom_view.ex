@@ -33,7 +33,8 @@ defmodule PhoenixAndElmWeb.ChatroomView do
       inserted_at: q.inserted_at,
       updated_at: q.updated_at,
       votes: Enum.map(q.votes, &render_votes(&1)),
-      replies: Enum.map(q.replies, &render_replies(&1))
+      replies: Enum.map(q.replies, &render_replies(&1)),
+      autoanswers: Enum.map(q.autoanswers, &render_autoanswers(&1))
     }
   end
 
@@ -49,6 +50,14 @@ defmodule PhoenixAndElmWeb.ChatroomView do
   def render_replies(r) do
     %{body: r.body,
       user_id: r.user_id,
+      question_id: r.question_id,
+      inserted_at: r.inserted_at,
+      updated_at: r.updated_at
+    }
+  end
+
+  def render_autoanswers(r) do
+    %{body: r.body,
       question_id: r.question_id,
       inserted_at: r.inserted_at,
       updated_at: r.updated_at

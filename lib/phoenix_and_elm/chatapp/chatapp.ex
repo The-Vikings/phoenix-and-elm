@@ -39,7 +39,7 @@ defmodule PhoenixAndElm.Chatapp do
 
   def get_chatroom_all!(id) do
     result = Repo.get!(Chatroom, id)
-    |> Repo.preload([{:questions, [:replies, :votes]}])
+    |> Repo.preload([{:questions, [:replies, :votes, :autoanswers]}])
   end
 
   @doc """
@@ -394,5 +394,101 @@ defmodule PhoenixAndElm.Chatapp do
   """
   def change_vote(%Vote{} = vote) do
     Vote.changeset(vote, %{})
+  end
+
+  alias PhoenixAndElm.Chatapp.AutoAnswer
+
+  @doc """
+  Returns the list of autoanswers.
+
+  ## Examples
+
+      iex> list_autoanswers()
+      [%AutoAnswer{}, ...]
+
+  """
+  def list_autoanswers do
+    Repo.all(AutoAnswer)
+  end
+
+  @doc """
+  Gets a single auto_answer.
+
+  Raises `Ecto.NoResultsError` if the Auto answer does not exist.
+
+  ## Examples
+
+      iex> get_auto_answer!(123)
+      %AutoAnswer{}
+
+      iex> get_auto_answer!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_auto_answer!(id), do: Repo.get!(AutoAnswer, id)
+
+  @doc """
+  Creates a auto_answer.
+
+  ## Examples
+
+      iex> create_auto_answer(%{field: value})
+      {:ok, %AutoAnswer{}}
+
+      iex> create_auto_answer(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_auto_answer(attrs \\ %{}) do
+    %AutoAnswer{}
+    |> AutoAnswer.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a auto_answer.
+
+  ## Examples
+
+      iex> update_auto_answer(auto_answer, %{field: new_value})
+      {:ok, %AutoAnswer{}}
+
+      iex> update_auto_answer(auto_answer, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_auto_answer(%AutoAnswer{} = auto_answer, attrs) do
+    auto_answer
+    |> AutoAnswer.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a AutoAnswer.
+
+  ## Examples
+
+      iex> delete_auto_answer(auto_answer)
+      {:ok, %AutoAnswer{}}
+
+      iex> delete_auto_answer(auto_answer)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_auto_answer(%AutoAnswer{} = auto_answer) do
+    Repo.delete(auto_answer)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking auto_answer changes.
+
+  ## Examples
+
+      iex> change_auto_answer(auto_answer)
+      %Ecto.Changeset{source: %AutoAnswer{}}
+
+  """
+  def change_auto_answer(%AutoAnswer{} = auto_answer) do
+    AutoAnswer.changeset(auto_answer, %{})
   end
 end

@@ -25,13 +25,12 @@ defmodule PhoenixAndElm.Seeds do
 end
 
 alias PhoenixAndElm.{Repo, Seeds}
-alias PhoenixAndElm.Chatapp.Chatroom
-alias PhoenixAndElm.Chatapp.Question
-alias PhoenixAndElm.Chatapp.Reply
+alias PhoenixAndElm.Chatapp.{Vote, Chatroom, Question, Reply, AutoAnswer}
 alias PhoenixAndElm.Accounts.User
-alias PhoenixAndElm.Chatapp.Vote
-Repo.delete_all(Reply)
+
 Repo.delete_all(Vote)
+Repo.delete_all(Reply)
+Repo.delete_all(AutoAnswer)
 Repo.delete_all(Question)
 Repo.delete_all(User)
 Repo.delete_all(Chatroom)
@@ -57,6 +56,11 @@ question1 = Repo.insert! %Question{
 Repo.insert! %Reply{
   body: "A dummy reply to the dummy question, by user 1",
   user_id: user1.id,
+  question_id: question1.id
+}
+
+Repo.insert! %AutoAnswer{
+  body: "An automatic answer to the dummy question",
   question_id: question1.id
 }
 

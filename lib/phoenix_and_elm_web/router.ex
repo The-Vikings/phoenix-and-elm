@@ -26,6 +26,7 @@ defmodule PhoenixAndElmWeb.Router do
 
     resources "/questions", QuestionController do #, except: [:new, :edit]
       resources "/replies", ReplyController
+      resources "/autoanswers", AutoAnswerController
       resources "/votes", VoteController
     end
 
@@ -33,7 +34,9 @@ defmodule PhoenixAndElmWeb.Router do
       resources "/votes", VoteController
     end
 
+    resources "/autoanswers", AutoAnswerController #, except: [:new, :edit]
     resources "/votes", VoteController #, except: [:new, :edit]
+
   end
   scope "/api/swagger" do
     forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :phoenix_and_elm, swagger_file: "swagger.json", opts: [disable_validator: true]

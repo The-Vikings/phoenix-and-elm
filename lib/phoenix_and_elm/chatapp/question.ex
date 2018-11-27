@@ -8,6 +8,7 @@ defmodule PhoenixAndElm.Chatapp.Question do
     field :chatroom_id, :id
     has_many :replies, PhoenixAndElm.Chatapp.Reply
     has_many :votes, PhoenixAndElm.Chatapp.Vote
+    has_many :autoanswers, PhoenixAndElm.Chatapp.AutoAnswer
 
     timestamps()
   end
