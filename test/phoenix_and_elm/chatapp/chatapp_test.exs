@@ -186,8 +186,8 @@ defmodule PhoenixAndElm.ChatappTest do
   describe "votes" do
     alias PhoenixAndElm.Chatapp.Vote
 
-    @valid_attrs %{value: "some value"}
-    @update_attrs %{value: "some updated value"}
+    @valid_attrs %{value: -1}
+    @update_attrs %{value: 1}
     @invalid_attrs %{value: nil}
 
     def vote_fixture(attrs \\ %{}) do
@@ -211,7 +211,7 @@ defmodule PhoenixAndElm.ChatappTest do
 
     test "create_vote/1 with valid data creates a vote" do
       assert {:ok, %Vote{} = vote} = Chatapp.create_vote(@valid_attrs)
-      assert vote.value == "some value"
+      assert vote.value == -1 
     end
 
     test "create_vote/1 with invalid data returns error changeset" do
@@ -222,7 +222,7 @@ defmodule PhoenixAndElm.ChatappTest do
       vote = vote_fixture()
       assert {:ok, vote} = Chatapp.update_vote(vote, @update_attrs)
       assert %Vote{} = vote
-      assert vote.value == "some updated value"
+      assert vote.value == 1 
     end
 
     test "update_vote/2 with invalid data returns error changeset" do

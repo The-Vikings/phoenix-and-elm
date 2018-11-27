@@ -4,8 +4,8 @@ defmodule PhoenixAndElmWeb.VoteControllerTest do
   alias PhoenixAndElm.Chatapp
   alias PhoenixAndElm.Chatapp.Vote
 
-  @create_attrs %{value: "some value"}
-  @update_attrs %{value: "some updated value"}
+  @create_attrs %{value: -1}
+  @update_attrs %{value: 1}
   @invalid_attrs %{value: nil}
 
   def fixture(:vote) do
@@ -32,7 +32,7 @@ defmodule PhoenixAndElmWeb.VoteControllerTest do
       conn = get conn, vote_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
-        "value" => "some value"}
+        "value" => -1}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -51,7 +51,7 @@ defmodule PhoenixAndElmWeb.VoteControllerTest do
       conn = get conn, vote_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
-        "value" => "some updated value"}
+        "value" => 1}
     end
 
     test "renders errors when data is invalid", %{conn: conn, vote: vote} do

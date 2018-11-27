@@ -3,7 +3,7 @@ defmodule PhoenixAndElm.Repo.Migrations.CreateVotes do
 
   def change do
     create table(:votes) do
-      add :value, :string
+      add :value, :integer, default: 0
       add :user_id, references(:users, on_delete: :nothing)
       add :question_id, references(:questions, on_delete: :nothing)
 

@@ -61,7 +61,7 @@ Repo.insert! %Reply{
 }
 
 Repo.insert! %Vote{
-  value: "1",
+  value: 1,
   user_id: user1.id,
   question_id: question1.id
 }
@@ -89,7 +89,7 @@ Repo.insert! %Reply{
 }
 
 Repo.insert! %Vote {
-  value: "1",
+  value: 1,
   user_id: 1,
   question_id: 1
 }

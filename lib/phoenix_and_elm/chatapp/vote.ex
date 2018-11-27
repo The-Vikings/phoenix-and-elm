@@ -4,7 +4,7 @@ defmodule PhoenixAndElm.Chatapp.Vote do
 
 
   schema "votes" do
-    field :value, :string
+    field :value, :integer, default: 0
     field :user_id, :id
     field :question_id, :id
 
