@@ -85,7 +85,7 @@ defmodule PhoenixAndElmWeb.RoomChannel do
 
   def save_vote_to_database(payload) do
     result = %{
-      body: payload["body"],
+      value: payload["value"],
       question_id: payload["question_id"]
     }
     Chatapp.create_vote(result)
