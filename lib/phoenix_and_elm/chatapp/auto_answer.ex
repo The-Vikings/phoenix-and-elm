@@ -13,7 +13,7 @@ defmodule PhoenixAndElm.Chatapp.AutoAnswer do
   @doc false
   def changeset(auto_answer, attrs) do
     auto_answer
-    |> cast(attrs, [:body])
+    |> cast(attrs, [:body, :question_id])
     |> validate_required([:body])
   end
 end

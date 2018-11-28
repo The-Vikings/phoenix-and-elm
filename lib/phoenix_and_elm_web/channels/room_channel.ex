@@ -15,21 +15,32 @@ defmodule PhoenixAndElmWeb.RoomChannel do
   def handle_in("ping", payload, socket) do
     {:reply, {:ok, payload}, socket}
   end
-  @expected_fields ~w(
-    entity abstract
-  )
 
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (room:lobby).
-  def handle_in("shout", payload, socket) do
-    spawn(fn -> automatic_query(payload) end)
-    save_to_database(payload)
-    broadcast socket, "shout", payload
+  def handle_in("newVote", payload, socket) do
+    {:ok, vote} = save_vote_to_database(payload)
+    broadcast socket, "newVote", payload
     {:noreply, socket}
   end
 
-  def automatic_query(payload) do
-    message = get_in(payload, ["message"])
+  def handle_in("newReply", payload, socket) do
+    {:ok, reply} = save_reply_to_database(payload)
+    broadcast socket, "newReply", payload
+    {:noreply, socket}
+  end
+
+  # It is also common to receive messages from the client and
+  # broadcast to everyone in the current topic (room:lobby).
+  def handle_in("newQuestion", payload, socket) do
+    {:ok, question} = save_question_to_database(payload)
+
+    spawn(fn -> automatic_query(payload, socket, question) end)
+
+    broadcast socket, "newQuestion", payload
+    {:noreply, socket}
+  end
+
+  def automatic_query(payload, socket, question) do
+    message = question.body
     url = "https://api.duckduckgo.com/?q=" <> message <> "&format=json&pretty=1?t=ABriefStudentProject"
     response = HTTPoison.get!(url).body
     |> Poison.decode!
@@ -37,17 +48,47 @@ defmodule PhoenixAndElmWeb.RoomChannel do
     |> List.first
     |> get_in(["Text"])
 
-    IO.inspect response
-    IO.inspect payload
+    result = %{
+      body: response,
+      question_id: question.id,
+      id: question.id
+    }
+
+    {:ok, answer} = Chatapp.create_auto_answer(result)
+
+    return = %{
+      body: answer.body,
+      question_id: answer.question_id,
+      inserted_at: answer.inserted_at,
+      updated_at: answer.updated_at
+    }
+
+    broadcast socket, "newAutoAnswer", return
   end
 
-  def save_to_database(payload) do
+  def save_question_to_database(payload) do
     result = %{
-      body: payload["message"],
+      body: payload["body"],
       user_id: 1,
       chatroom_id: 1
     }
     Chatapp.create_question(result)
+  end
+
+  def save_reply_to_database(payload) do
+    result = %{
+      body: payload["body"],
+      question_id: payload["question_id"]
+    }
+    Chatapp.create_reply(result)
+  end
+
+  def save_vote_to_database(payload) do
+    result = %{
+      body: payload["body"],
+      question_id: payload["question_id"]
+    }
+    Chatapp.create_vote(result)
   end
 
   # Add authorization logic here as required.
