@@ -24,20 +24,18 @@
     </div>
     <footer id="main_footer">
       Crafted with ♥ by
-      <a href="http://codeloveandboards.com" target="_blank">bigardone</a>
-      <br/>
-      Iterated on with ♥ by
-      <a href="https://paulfioravanti.com" target="_blank">Paul Fioravanti</a>
+      <a href="https://github.com/The-Vikings/" target="_blank">The Vikings</a>
       <br/>
       Check out the
-      <a href="https://github.com/bigardone/phoenix-and-elm" target="_blank">
-        original source code
+      <a href="https://github.com/The-Vikings/leia-elm" target="_blank">
+        frontend
       </a>
-      and
-      <a href="https://github.com/paulfioravanti/phoenix-and-elm"
+      &
+      <a href="https://github.com/The-Vikings/phoenix-and-elm"
          target="_blank">
-        this source code
+        backend
       </a>
+      source code
     </footer>
     <script src="https://use.fontawesome.com/2469a3fc21.js"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
