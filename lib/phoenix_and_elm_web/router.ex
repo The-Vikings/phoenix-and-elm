@@ -16,15 +16,44 @@ defmodule PhoenixAndElmWeb.Router do
   scope "/api", PhoenixAndElmWeb do
     pipe_through :api
 
-    scope "/v1", V1 do
-      resources "/contacts", ContactController, only: [:index, :show]
+    resources "/users", UserController #, except: [:new, :edit]
+
+    resources "/chatrooms", ChatroomController do #, except: [:new, :edit]
+      get "/all", ChatroomController, :all, as: :all
+      resources "/questions", QuestionController
+      resources "/users", UserController
     end
+
+    resources "/questions", QuestionController do #, except: [:new, :edit]
+      resources "/replies", ReplyController
+      resources "/autoanswers", AutoAnswerController
+      resources "/votes", VoteController
+    end
+
+    resources "/replies", ReplyController do #, except: [:new, :edit]
+      resources "/votes", VoteController
+    end
+
+    resources "/autoanswers", AutoAnswerController #, except: [:new, :edit]
+    resources "/votes", VoteController #, except: [:new, :edit]
+
+  end
+  scope "/api/swagger" do
+    forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :phoenix_and_elm, swagger_file: "swagger.json", opts: [disable_validator: true]
   end
 
   scope "/", PhoenixAndElmWeb do
     # Use the default browser stack
     pipe_through :browser
+    get "/*path", ChatappController, :index
+  end
+  def swagger_info do
+    %{
 
-    get "/*path", AddressBookController, :index
+      info: %{
+	version: "0.1",
+	title: "Leia App"
+      }
+    }
   end
 end

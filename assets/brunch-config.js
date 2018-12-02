@@ -16,6 +16,12 @@ exports.config = {
     }
   },
 
+  watcher: {
+    usePolling: true,
+    awaitWriteFinish: true
+  },
+  notifications: false, 
+
   conventions: {
     // This option sets where we should place non-css and non-js assets in.
     // By default, we set this to "/assets/static". Files in this directory

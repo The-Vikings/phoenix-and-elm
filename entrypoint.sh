@@ -13,19 +13,32 @@ done
 cd assets && npm install
 cd ..
 
+export PORT=80
+
 mix deps.get
 
 # Potentially Set up the database
 mix ecto.create
 mix ecto.migrate
 
+
 echo "\nTesting the installation..."
+
 
 if [ "$TRAVIS_TEST" = "true" ]
 then
+#    MIX_ENV=test mix coveralls.travis
     mix test
 else
     mix test
+    mix phx.routes
+
+#if [ "$FILL_DATABASE" = "true" ]
+#then
+    echo "Populating the database with dummy data"
+    mix run priv/repo/seeds.exs
+#fi
+
     mix phx.server
 fi
 

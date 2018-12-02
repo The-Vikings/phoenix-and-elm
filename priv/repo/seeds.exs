@@ -25,50 +25,78 @@ defmodule PhoenixAndElm.Seeds do
 end
 
 alias PhoenixAndElm.{Repo, Seeds}
-alias PhoenixAndElm.AddressBook.Contact
+alias PhoenixAndElm.Chatapp.{Vote, Chatroom, Question, Reply, AutoAnswer}
+alias PhoenixAndElm.Accounts.User
 
-IO.puts("---- Deleteing existing contacts")
+Repo.delete_all(Vote)
+Repo.delete_all(Reply)
+Repo.delete_all(AutoAnswer)
+Repo.delete_all(Question)
+Repo.delete_all(User)
+Repo.delete_all(Chatroom)
 
-Repo.delete_all(Contact)
 
-IO.puts("---- Creating contacts")
+# Don't delete dummy data
+########################################
+chatroom1 = Repo.insert! %Chatroom{
+  name: "Dummy room",
+}
 
-for index <- 1..100 do
-  {gender_id, gender_name} =
-    Contact.genders()
-    |> Enum.random()
+user1 = Repo.insert! %User{
+  name: "Dummy user",
+  chatroom_id: chatroom1.id
+}
 
-  picture_gender =
-    case gender_name do
-      :male -> "men"
-      _ -> "women"
-    end
+question1 = Repo.insert! %Question{
+  body: "Dummy question?",
+  user_id: user1.id,
+  chatroom_id: chatroom1.id
+}
 
-  picture =
-    "https://api.randomuser.me/portraits/#{picture_gender}/#{index}.jpg"
+Repo.insert! %Reply{
+  body: "A dummy reply to the dummy question, by user 1",
+  user_id: user1.id,
+  question_id: question1.id
+}
 
-  birth_date = """
-  #{Seeds.random_number(1970, 1990)}-\
-  #{Seeds.random_number(1, 12)}-\
-  #{Seeds.random_number(1, 28)}\
-  """
+Repo.insert! %AutoAnswer{
+  body: "An automatic answer to the dummy question",
+  question_id: question1.id
+}
 
-  params = %{
-    first_name: Faker.Name.first_name(),
-    last_name: Faker.Name.last_name(),
-    gender: gender_id,
-    birth_date: birth_date,
-    location: Faker.Address.country(),
-    phone_number: Faker.Phone.EnUs.phone(),
-    email: Faker.Internet.email(),
-    picture: picture,
-    headline: Faker.Lorem.sentence(3)
-  }
+Repo.insert! %Vote{
+  value: 1,
+  user_id: user1.id,
+  question_id: question1.id
+}
+########################################
+"""
+Repo.insert! %Chatroom{
+  name: "CS408",
+}
 
-  {:ok, contact} =
-    %Contact{}
-    |> Contact.changeset(params)
-    |> Repo.insert()
+Repo.insert! %User{
+  name: "Test user 2",
+  chatroom_id: 1
+}
 
-  IO.puts("---- Inserted contact #{contact.id}")
-end
+Repo.insert! %Question{
+  body: "The first test question?",
+  user_id: 1,
+  chatroom_id: 1
+}
+
+Repo.insert! %Reply{
+  body: "A reply to the first test question, by user 2",
+  user_id: 1,
+  question_id: 1
+}
+
+Repo.insert! %Vote {
+  value: 1,
+  user_id: 1,
+  question_id: 1
+}
+
+"""
+
