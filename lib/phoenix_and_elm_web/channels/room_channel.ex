@@ -1,7 +1,8 @@
 defmodule PhoenixAndElmWeb.RoomChannel do
   use PhoenixAndElmWeb, :channel
   alias PhoenixAndElm.Chatapp
-
+  alias PhoenixAndElm.Chatapp.Question
+  alias PhoenixAndElm.Repo
   def join("room:lobby", payload, socket) do
     if authorized?(payload) do
       {:ok, socket}
@@ -31,7 +32,7 @@ defmodule PhoenixAndElmWeb.RoomChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (room:lobby).
   def handle_in("newQuestion", payload, socket) do
-    {:ok, question} = save_question_to_database(payload)
+    question = save_question_to_database(payload)
 
     spawn(fn -> automatic_query(payload, socket, question) end)
 
@@ -44,6 +45,7 @@ defmodule PhoenixAndElmWeb.RoomChannel do
     }
 
     broadcast socket, "newQuestion", returnQuestion
+    IO.inspect returnQuestion
     {:noreply, socket}
   end
 
@@ -75,12 +77,13 @@ defmodule PhoenixAndElmWeb.RoomChannel do
   end
 
   def save_question_to_database(payload) do
-    result = %{
+    result = %Question{
       body: payload["body"],
       user_id: 1,
       chatroom_id: 1
     }
-    Chatapp.create_question(result)
+    #Chatapp.create_question(result)
+    Repo.insert! result
   end
 
   def save_reply_to_database(payload) do
