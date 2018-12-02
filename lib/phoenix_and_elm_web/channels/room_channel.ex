@@ -35,7 +35,15 @@ defmodule PhoenixAndElmWeb.RoomChannel do
 
     spawn(fn -> automatic_query(payload, socket, question) end)
 
-    broadcast socket, "newQuestion", payload
+    returnQuestion = %{
+      user_id: question.user_id,
+      updated_at: question.updated_at,
+      inserted_at: question.inserted_at,
+      id: question.id,
+      body: question.body
+    }
+
+    broadcast socket, "newQuestion", returnQuestion
     {:noreply, socket}
   end
 
