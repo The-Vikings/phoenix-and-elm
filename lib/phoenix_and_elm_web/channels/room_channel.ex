@@ -64,22 +64,26 @@ defmodule PhoenixAndElmWeb.RoomChannel do
     |> get_in(["RelatedTopics"])
     |> List.first
     |> get_in(["Text"])
+    
+    if response == nil  do
+      IO.puts "No automatic response available"    
+    else 
+      result = %AutoAnswer{
+        body: response,
+        question_id: question.id
+      }
 
-    result = %AutoAnswer{
-      body: response,
-      question_id: question.id
-    }
+      answer = Repo.insert! result
 
-    answer = Repo.insert! result
+      returnAutoAnswer = %{
+        body: answer.body,
+        question_id: answer.question_id,
+        inserted_at: answer.inserted_at,
+        updated_at: answer.updated_at
+      }
 
-    return = %{
-      body: answer.body,
-      question_id: answer.question_id,
-      inserted_at: answer.inserted_at,
-      updated_at: answer.updated_at
-    }
-
-    broadcast socket, "newAutoAnswer", return
+      broadcast socket, "newAutoAnswer", returnAutoAnswer
+    end
   end
 
   def save_question_to_database(payload) do
