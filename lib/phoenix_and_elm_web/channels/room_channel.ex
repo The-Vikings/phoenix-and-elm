@@ -24,8 +24,15 @@ defmodule PhoenixAndElmWeb.RoomChannel do
   end
 
   def handle_in("newReply", payload, socket) do
-    {:ok, reply} = save_reply_to_database(payload)
-    broadcast socket, "newReply", payload
+    reply = save_reply_to_database(payload)
+    returnReply = %{
+      user_id: 1,
+      body: reply.body,
+      question_id: reply.question_id
+      updated_at: reply.updated_at,
+      inserted_at: reply.inserted_at 
+    }
+    broadcast socket, "newReply", returnReply
     {:noreply, socket}
   end
 
@@ -60,13 +67,12 @@ defmodule PhoenixAndElmWeb.RoomChannel do
 
     result = %{
       body: response,
-      question_id: question.id,
-      id: question.id
+      question_id: question.id
     }
 
-    {:ok, answer} = Chatapp.create_auto_answer(result)
+    answer = Repo.insert! result
 
-    return = %{
+    return = %AutoAnswer{
       body: answer.body,
       question_id: answer.question_id,
       inserted_at: answer.inserted_at,
@@ -87,19 +93,21 @@ defmodule PhoenixAndElmWeb.RoomChannel do
   end
 
   def save_reply_to_database(payload) do
-    result = %{
+    result = %Reply{
       body: payload["body"],
-      question_id: payload["question_id"]
+      question_id: payload["question_id"],
+      user_id: 1
     }
-    Chatapp.create_reply(result)
+    Repo.insert! result
   end
 
   def save_vote_to_database(payload) do
-    result = %{
+    result = %Vote{
       value: payload["value"],
-      question_id: payload["question_id"]
+      question_id: payload["question_id"],
+      user_id: 1
     }
-    Chatapp.create_vote(result)
+    Repo.insert! result
   end
 
   # Add authorization logic here as required.
