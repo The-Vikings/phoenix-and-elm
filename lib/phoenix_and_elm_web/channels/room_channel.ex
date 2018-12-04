@@ -1,7 +1,7 @@
 defmodule PhoenixAndElmWeb.RoomChannel do
   use PhoenixAndElmWeb, :channel
   alias PhoenixAndElm.Chatapp
-  alias PhoenixAndElm.Chatapp.Question
+  alias PhoenixAndElm.Chatapp.{Question, Reply, AutoAnswer, Vote}
   alias PhoenixAndElm.Repo
   def join("room:lobby", payload, socket) do
     if authorized?(payload) do
@@ -28,7 +28,7 @@ defmodule PhoenixAndElmWeb.RoomChannel do
     returnReply = %{
       user_id: 1,
       body: reply.body,
-      question_id: reply.question_id
+      question_id: reply.question_id,
       updated_at: reply.updated_at,
       inserted_at: reply.inserted_at 
     }
