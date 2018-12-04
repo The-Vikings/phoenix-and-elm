@@ -65,14 +65,14 @@ defmodule PhoenixAndElmWeb.RoomChannel do
     |> List.first
     |> get_in(["Text"])
 
-    result = %{
+    result = %AutoAnswer{
       body: response,
       question_id: question.id
     }
 
     answer = Repo.insert! result
 
-    return = %AutoAnswer{
+    return = %{
       body: answer.body,
       question_id: answer.question_id,
       inserted_at: answer.inserted_at,
@@ -88,6 +88,7 @@ defmodule PhoenixAndElmWeb.RoomChannel do
       user_id: 1,
       chatroom_id: 1
     }
+    IO.inspect result
     #Chatapp.create_question(result)
     Repo.insert! result
   end

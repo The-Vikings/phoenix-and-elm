@@ -27,14 +27,13 @@ end
 alias PhoenixAndElm.{Repo, Seeds}
 alias PhoenixAndElm.Chatapp.{Vote, Chatroom, Question, Reply, AutoAnswer}
 alias PhoenixAndElm.Accounts.User
-"""
+
 Repo.delete_all(Vote)
 Repo.delete_all(Reply)
 Repo.delete_all(AutoAnswer)
 Repo.delete_all(Question)
-Repo.delete_all(User)
-Repo.delete_all(Chatroom)
-"""
+#Repo.delete_all(User)
+#Repo.delete_all(Chatroom)
 
 # Don't delete dummy data
 ########################################
